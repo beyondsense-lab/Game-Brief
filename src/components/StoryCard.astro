@@ -1,0 +1,4 @@
+---
+const {story,compact=false}=Astro.props;
+---
+<article class:list={["card group overflow-hidden", compact?'p-4':'']}><a href={`/news/${story.slug}`} class="block">{story.hero_image&&!compact&&<img src={story.hero_image} alt={story.hero_image_alt||''} width="800" height="450" class="aspect-video w-full object-cover" loading="lazy"/>}<div class={compact?'':'p-5'}><p class="kicker">{story.category_name||'News'}</p><h3 class="mt-2 text-xl font-black leading-tight group-hover:text-acid">{story.title}</h3><p class="mt-2 text-sm text-muted">{story.excerpt}</p></div></a></article>

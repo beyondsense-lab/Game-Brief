@@ -1,0 +1,7 @@
+export type SessionUser={id:number;email:string;name:string;role:'admin'|'editor'};
+const cookie='gb_session';
+export async function hashPassword(password:string){const data=new TextEncoder().encode(password); const digest=await crypto.subtle.digest('SHA-256',data); return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+export async function createSession(Astro:any,user:any){const id=crypto.randomUUID(); const exp=new Date(Date.now()+1000*60*60*24*7).toISOString(); await Astro.locals.runtime.env.DB.prepare('INSERT INTO sessions(id,user_id,expires_at,created_at) VALUES(?,?,?,?)').bind(id,user.id,exp,new Date().toISOString()).run(); Astro.cookies.set(cookie,id,{httpOnly:true,secure:Astro.url.protocol==='https:',sameSite:'lax',path:'/',expires:new Date(exp)});}
+export async function getUser(Astro:any):Promise<SessionUser|null>{const id=Astro.cookies.get(cookie)?.value; if(!id) return null; return await Astro.locals.runtime.env.DB.prepare(`SELECT u.id,u.email,u.name,u.role FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.id=? AND s.expires_at > datetime('now') AND u.status='active'`).bind(id).first() as any}
+export async function logout(Astro:any){const id=Astro.cookies.get(cookie)?.value; if(id) await Astro.locals.runtime.env.DB.prepare('DELETE FROM sessions WHERE id=?').bind(id).run(); Astro.cookies.delete(cookie,{path:'/'});}
+export function requireRole(user:SessionUser|null,roles=['admin','editor']){return !!user && roles.includes(user.role)}

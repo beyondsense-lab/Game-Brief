@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout seo={{title:'CMS Login — GAME//BRIEF',description:'Admin login',noindex:true}}><section class="container flex min-h-[70vh] items-center justify-center"><form method="post" action="/api/admin/login" class="card w-full max-w-md p-8"><h1 class="text-3xl font-black">CMS Login</h1><input class="input mt-6" name="email" type="email" required placeholder="Email"/><input class="input mt-3" name="password" type="password" required placeholder="Password"/><button class="btn mt-5 w-full">Login</button></form></section></BaseLayout>

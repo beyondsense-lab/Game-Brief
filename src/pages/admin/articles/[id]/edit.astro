@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import AdminArticleForm from '@/components/AdminArticleForm.astro'; import { first } from '@/db/queries/public'; const article=await first(Astro,'SELECT * FROM articles WHERE id=?',Astro.params.id);
+---
+<AdminLayout><h1 class="mb-5 text-3xl font-black">Edit Article</h1><AdminArticleForm article={article} action={`/api/admin/articles?id=${Astro.params.id}`}/></AdminLayout>
