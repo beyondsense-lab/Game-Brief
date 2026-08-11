@@ -13,19 +13,19 @@
   },
   "dependencies": {
     "@astrojs/check": "latest",
-    "@astrojs/cloudflare": "latest",
-    "@astrojs/tailwind": "latest",
-    "astro": "latest",
+    "@astrojs/cloudflare": "14.2.0",
+    "astro": "7.2.0",
     "drizzle-orm": "latest",
     "marked": "latest",
-    "typescript": "latest",
+    "typescript": "7.0.2",
     "zod": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
     "drizzle-kit": "latest",
+    "tailwindcss": "4.3.3",
     "tsx": "latest",
-    "wrangler": "latest",
-    "tailwindcss": "latest"
+    "wrangler": "latest"
   },
   "type": "module"
 }
