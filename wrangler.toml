@@ -1,5 +1,4 @@
-name = "game-brief"
-main = "dist/_worker.js/index.js"
+name = "gamebrief"
 compatibility_date = "2026-08-11"
 compatibility_flags = ["nodejs_compat"]
 [assets]
@@ -7,11 +6,11 @@ directory = "dist"
 binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
-database_name = "game-brief"
-database_id = "${DATABASE_ID}"
+database_name = "gamebrief"
+database_id = "9806a18b-9c39-4ce0-8125-8f9c761c7dce"
 [vars]
-PUBLIC_SITE_URL = "https://gamebrief.example.com"
+PUBLIC_SITE_URL = "https://gamebrief.pages.dev"
 EMAIL_PROVIDER = "log"
 EMAIL_FROM = "newsletter@gamebrief.example.com"
 EMAIL_REPLY_TO = "editorial@gamebrief.example.com"
-CLOUDINARY_CLOUD_NAME = "<YOUR_CLOUDINARY_CLOUD_NAME>"
+CLOUDINARY_CLOUD_NAME = "ahmzr2qw"

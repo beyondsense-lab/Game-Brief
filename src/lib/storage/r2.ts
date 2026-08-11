@@ -1,0 +1,2 @@
+const allowed=new Set(['image/jpeg','image/png','image/webp','image/avif']);
+export async function uploadImage(env:Env,file:File,userId:number){if(!allowed.has(file.type)) throw new Error('Unsupported image type'); if(file.size>5_000_000) throw new Error('Image exceeds 5MB'); const ext=file.type.split('/')[1].replace('jpeg','jpg'); const key=`media/${new Date().toISOString().slice(0,10)}/${crypto.randomUUID()}.${ext}`; await env.MEDIA_BUCKET.put(key,await file.arrayBuffer(),{httpMetadata:{contentType:file.type}}); return {key,url:`/media/${key}`,size:file.size};}

@@ -8,5 +8,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: process.env.PUBLIC_SITE_URL || 'https://gamebrief.example.com',
+  site: process.env.PUBLIC_SITE_URL || 'https://gamebrief.pages.dev',
 });
