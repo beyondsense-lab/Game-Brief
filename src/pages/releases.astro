@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import { getGames } from '@/db/queries/public'; const games=await getGames(Astro,100);
+---
+<BaseLayout seo={{title:'Game Releases — GAME//BRIEF',description:'Upcoming game release calendar.',path:'/releases'}}><section class="container py-10"><p class="kicker">Calendar</p><h1 class="text-5xl font-black">Game releases</h1><div class="mt-6 divide-y divide-line">{games.map((g:any)=><a class="grid py-4 md:grid-cols-4" href={`/games/${g.slug}`}><b>{g.name}</b><span>{g.release_date||'TBA'}</span><span>{g.genre}</span><span>View hub →</span></a>)}</div></section></BaseLayout>

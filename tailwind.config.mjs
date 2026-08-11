@@ -1,0 +1,1 @@
+export default { content:['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'], theme:{ extend:{ colors:{ink:'#08090d',panel:'#10131a',muted:'#8d96a8',line:'#242936',acid:'#d7ff3f',paper:'#f5f2ea'}, fontFamily:{sans:['Inter','ui-sans-serif','system-ui'],display:['Arial Black','Inter','sans-serif']}, boxShadow:{brutal:'6px 6px 0 #08090d'} } } };

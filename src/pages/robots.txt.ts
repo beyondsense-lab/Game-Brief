@@ -1,0 +1,1 @@
+import type { APIRoute } from 'astro'; export const GET:APIRoute=({locals})=>new Response(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /search\nSitemap: ${locals.runtime.env.PUBLIC_SITE_URL}/sitemap.xml\n`,{headers:{'content-type':'text/plain'}});

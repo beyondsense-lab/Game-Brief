@@ -1,0 +1,19 @@
+name = "game-brief"
+main = "dist/_worker.js/index.js"
+compatibility_date = "2026-08-11"
+compatibility_flags = ["nodejs_compat"]
+[assets]
+directory = "dist"
+binding = "ASSETS"
+[[d1_databases]]
+binding = "DB"
+database_name = "game-brief"
+database_id = "${DATABASE_ID}"
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "${R2_BUCKET}"
+[vars]
+PUBLIC_SITE_URL = "https://gamebrief.example.com"
+EMAIL_PROVIDER = "log"
+EMAIL_FROM = "newsletter@gamebrief.example.com"
+EMAIL_REPLY_TO = "editorial@gamebrief.example.com"

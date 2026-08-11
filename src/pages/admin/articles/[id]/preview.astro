@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import { first } from '@/db/queries/public'; import { renderMarkdown } from '@/lib/content/markdown'; const article=await first(Astro,'SELECT * FROM articles WHERE id=?',Astro.params.id);
+---
+<BaseLayout seo={{title:'Preview: '+article?.title,description:'Draft preview',noindex:true}}><article class="container max-w-4xl py-10"><p class="kicker">Authenticated Preview</p><h1 class="text-6xl font-black">{article?.title}</h1><p class="mt-4 text-xl text-muted">{article?.excerpt}</p><div class="prose-gb mt-8" set:html={await renderMarkdown(article?.content||'')} /></article></BaseLayout>

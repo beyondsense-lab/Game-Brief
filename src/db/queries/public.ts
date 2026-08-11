@@ -1,0 +1,12 @@
+export type Ctx={locals:{runtime:{env:Env}}};
+const safe = <T>(p:Promise<T>, fallback:T)=>p.catch(()=>fallback);
+export async function all<T=any>(ctx:Ctx,sql:string,...params:any[]):Promise<T[]>{return safe(ctx.locals.runtime.env.DB.prepare(sql).bind(...params).all<T>().then(r=>r.results||[]),[])}
+export async function first<T=any>(ctx:Ctx,sql:string,...params:any[]):Promise<T|null>{return safe(ctx.locals.runtime.env.DB.prepare(sql).bind(...params).first<T>(),null)}
+export const publishedWhere="status='published' AND (published_at IS NULL OR published_at <= datetime('now')) AND allow_indexing=1";
+export const getPublishedArticles=(ctx:Ctx,limit=12)=>all(ctx,`SELECT a.*, au.name author_name, au.slug author_slug, c.name category_name, c.slug category_slug FROM articles a LEFT JOIN authors au ON au.id=a.author_id LEFT JOIN categories c ON c.id=a.category_id WHERE ${publishedWhere} ORDER BY published_at DESC LIMIT ?`,limit);
+export const getFeaturedArticles=(ctx:Ctx)=>all(ctx,`SELECT * FROM articles WHERE ${publishedWhere} AND featured=1 ORDER BY published_at DESC LIMIT 4`);
+export const getTrendingArticles=(ctx:Ctx)=>all(ctx,`SELECT * FROM articles WHERE ${publishedWhere} ORDER BY trending DESC, featured DESC, published_at DESC LIMIT 6`);
+export const getArticleBySlug=(ctx:Ctx,slug:string)=>first(ctx,`SELECT a.*, au.name author_name, au.slug author_slug, au.bio author_bio, c.name category_name, c.slug category_slug, g.name game_name, g.slug game_slug FROM articles a LEFT JOIN authors au ON au.id=a.author_id LEFT JOIN categories c ON c.id=a.category_id LEFT JOIN games g ON g.id=a.game_id WHERE a.slug=? AND ${publishedWhere}`,slug);
+export const getGames=(ctx:Ctx,limit=24)=>all(ctx,`SELECT g.*, d.name developer_name, p.name publisher_name FROM games g LEFT JOIN developers d ON d.id=g.developer_id LEFT JOIN publishers p ON p.id=g.publisher_id ORDER BY release_date IS NULL, release_date LIMIT ?`,limit);
+export const getGameBySlug=(ctx:Ctx,slug:string)=>first(ctx,`SELECT g.*, d.name developer_name,d.slug developer_slug,p.name publisher_name,p.slug publisher_slug FROM games g LEFT JOIN developers d ON d.id=g.developer_id LEFT JOIN publishers p ON p.id=g.publisher_id WHERE g.slug=?`,slug);
+export const searchAll=(ctx:Ctx,q:string)=>all(ctx,`SELECT 'news' type,title,slug,excerpt FROM articles WHERE ${publishedWhere} AND (title LIKE ? OR excerpt LIKE ?) UNION ALL SELECT 'games',name,slug,description FROM games WHERE name LIKE ? OR description LIKE ? LIMIT 30`,...Array(4).fill(`%${q}%`));

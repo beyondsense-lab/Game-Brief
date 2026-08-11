@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import { getGames } from '@/db/queries/public'; const games=await getGames(Astro,48);
+---
+<BaseLayout seo={{title:'Games — GAME//BRIEF',description:'Game database, release dates, platforms, developers and related coverage.',path:'/games'}}><section class="container py-10"><p class="kicker">Database</p><h1 class="text-5xl font-black">Games</h1><div class="mt-8 grid gap-4 md:grid-cols-4">{games.map((g:any)=><a class="card overflow-hidden" href={`/games/${g.slug}`}>{g.cover_image&&<img src={g.cover_image} alt={g.cover_image_alt||''} class="aspect-[3/4] w-full object-cover"/>}<div class="p-4"><h2 class="font-black">{g.name}</h2><p class="text-sm text-muted">{g.genre} · {g.release_date||'TBA'}</p></div></a>)}</div></section></BaseLayout>
