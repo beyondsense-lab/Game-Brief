@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import AdminGameForm from '@/components/AdminGameForm.astro'; import { first, all } from '@/db/queries/public'; const game=await first(Astro,'SELECT * FROM games WHERE id=?',Astro.params.id); const developers=await all(Astro,'SELECT id,name FROM developers ORDER BY name ASC'); const platforms=await all(Astro,'SELECT id,name FROM platforms ORDER BY name ASC'); const linked=await all(Astro,'SELECT platform_id FROM game_platforms WHERE game_id=?',Astro.params.id); const selectedPlatformIds=linked.map((p:any)=>p.platform_id);
+---
+<AdminLayout><h1 class="mb-5 text-3xl font-black">Edit Game</h1><AdminGameForm game={game} developers={developers} platforms={platforms} selectedPlatformIds={selectedPlatformIds} action={`/api/admin/games?id=${Astro.params.id}`}/></AdminLayout>

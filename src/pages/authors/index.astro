@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import { getAuthors } from '@/db/queries/public'; const authors=await getAuthors(Astro);
+---
+<BaseLayout seo={{title:'Authors — GAME//BRIEF',description:'Meet the GAME//BRIEF editorial team.',path:'/authors'}}><section class="container py-10"><p class="kicker">Team</p><h1 class="text-5xl font-black">Authors</h1><p class="mt-4 text-muted">The writers covering news, reviews and guides for GAME//BRIEF.</p><div class="mt-8 grid gap-4 md:grid-cols-3">{authors.map((a:any)=><a class="card flex items-center gap-3 p-5" href={`/authors/${a.slug}`}>{a.avatar&&<img src={a.avatar} alt="" width="48" height="48" class="rounded-full object-cover"/>}<span class="font-black">{a.name}</span></a>)}</div>{authors.length===0&&<p class="mt-5 text-muted">No authors published yet.</p>}</section></BaseLayout>

@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import AdminTaxonomyForm from '@/components/AdminTaxonomyForm.astro'; import { first } from '@/db/queries/public'; const item=await first(Astro,'SELECT * FROM tags WHERE id=?',Astro.params.id);
+---
+<AdminLayout><h1 class="mb-5 text-3xl font-black">Edit Tag</h1><AdminTaxonomyForm kind="tag" item={item} action={`/api/admin/tags?id=${Astro.params.id}`} /></AdminLayout>

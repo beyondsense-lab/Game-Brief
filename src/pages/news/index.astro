@@ -1,0 +1,29 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StoryCard from '@/components/StoryCard.astro';
+import { getPublishedArticles } from '@/db/queries/public';
+
+const articles = await getPublishedArticles(Astro, 24);
+---
+
+<BaseLayout
+  seo={{
+    title: 'Gaming News — GAME//BRIEF',
+    description: 'Latest gaming news across PC, console, mobile, hardware and esports.',
+    path: '/news'
+  }}
+>
+  <section class="container py-10">
+    <p class="kicker">News Desk</p>
+
+    <h1 class="mt-2 text-5xl font-black">
+      Latest gaming news
+    </h1>
+
+    <div class="mt-8 grid gap-5 md:grid-cols-3">
+      {articles.map((s: any) => (
+        <StoryCard story={s} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

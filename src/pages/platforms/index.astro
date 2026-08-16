@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import { getPlatforms } from '@/db/queries/public'; const platforms=await getPlatforms(Astro);
+---
+<BaseLayout seo={{title:'Platforms — GAME//BRIEF',description:'Browse GAME//BRIEF coverage by platform.',path:'/platforms'}}><section class="container py-10"><p class="kicker">Database</p><h1 class="text-5xl font-black">Platforms</h1><p class="mt-4 text-muted">Explore news, reviews and guides organized by platform.</p><div class="mt-8 grid gap-4 md:grid-cols-3">{platforms.map((p:any)=><a class="card flex items-center gap-3 p-5" href={`/platforms/${p.slug}`}>{p.logo&&<img src={p.logo} alt="" width="40" height="40" class="object-contain"/>}<span class="font-black">{p.name}</span></a>)}</div>{platforms.length===0&&<p class="mt-5 text-muted">No platforms published yet.</p>}</section></BaseLayout>

@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import { dashboardStats } from '@/db/queries/admin'; const s=await dashboardStats(Astro);
+---
+<AdminLayout><h1 class="text-3xl font-black">Dashboard</h1><div class="mt-6 grid gap-4 md:grid-cols-4">{Object.entries(s).map(([k,v])=><div class="card p-5"><p class="kicker">{k.replace('_',' ')}</p><p class="mt-2 text-4xl font-black">{v}</p></div>)}</div></AdminLayout>

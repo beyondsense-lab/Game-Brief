@@ -1,0 +1,33 @@
+{
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply gamebrief --local",
+    "db:migrate:remote": "wrangler d1 migrations apply gamebrief --remote",
+    "db:seed": "tsx scripts/seed.ts",
+    "deploy": "astro build && wrangler deploy",
+    "media:migrate-r2": "tsx scripts/migrate-r2-to-cloudinary.ts"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/cloudflare": "14.2.0",
+    "astro": "7.2.0",
+    "drizzle-orm": "latest",
+    "marked": "latest",
+    "typescript": "^5.9.3",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "drizzle-kit": "latest",
+    "tailwindcss": "4.3.3",
+    "@cloudflare/workers-types": "^5.20260809.1", 
+    "@types/node": "^22.0.0",
+    "tsx": "latest",
+    "wrangler": "latest"
+  },
+  "type": "module"
+}

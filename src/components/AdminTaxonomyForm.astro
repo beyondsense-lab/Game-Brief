@@ -1,0 +1,14 @@
+---
+const {kind='tag', item={}, action}=Astro.props;
+const isCategory=kind==='category';
+const isAuthor=kind==='author';
+const hasLogo=kind==='platform'||kind==='developer';
+const hasWebsite=kind==='developer'||isAuthor;
+const descKey=isAuthor?'bio':'description';
+const descLabel=isAuthor?'Bio':'Description';
+const logoKey=isAuthor?'avatar':'logo';
+const logoLabel=isAuthor?'Avatar URL':'Logo URL';
+const typeLabel=kind.charAt(0).toUpperCase()+kind.slice(1);
+---
+<form method="post" action={action} class="grid gap-5 lg:grid-cols-[1fr_360px]"><section class="card p-5"><label class="kicker">Name<input class="input mt-2" name="name" value={item.name||''} required/></label><label class="mt-4 block text-sm font-bold">Slug<input class="input mt-2" name="slug" placeholder="auto-generated-from-name" value={item.slug||''}/></label><label class="mt-4 block text-sm font-bold">{descLabel}<textarea class="input mt-2 min-h-[160px]" name={descKey}>{item[descKey]||''}</textarea></label>{isCategory&&<label class="mt-4 block text-sm font-bold">Parent category ID<input class="input mt-2" name="parentId" value={item.parent_id||''} aria-label="Parent category ID" placeholder="Leave blank for a top-level category"/></label>}{hasLogo&&<label class="mt-4 block text-sm font-bold">{logoLabel}<input class="input mt-2" name={logoKey} placeholder={logoLabel} value={item[logoKey]||''}/></label>}{hasWebsite&&<label class="mt-4 block text-sm font-bold">Website<input class="input mt-2" name="website" placeholder="https://" value={item.website||''}/></label>}{isAuthor&&<label class="mt-4 block text-sm font-bold">Social links<input class="input mt-2" name="socialLinks" placeholder="https://twitter.com/... (comma separated)" value={item.social_links||''}/></label>}</section><aside class="grid gap-4"><div class="card p-5"><h2 class="kicker">SEO metadata</h2><input class="input mt-3" name="seoTitle" placeholder="SEO title" value={item.seo_title||''}/><textarea class="input mt-3" name="seoDescription" placeholder="SEO description">{item.seo_description||''}</textarea><div class="mt-4 border border-line p-3"><p class="text-xs text-muted">Google Search Preview</p><p class="font-bold text-blue-400">{item.seo_title||item.name||`${typeLabel} title`}</p><p class="text-sm text-zinc-300">{item.seo_description||item[descKey]||'SEO description preview.'}</p></div></div><div class="card p-5"><button class="btn w-full">Save</button></div></aside></form>
+

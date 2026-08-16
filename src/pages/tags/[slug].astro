@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import StoryCard from '@/components/StoryCard.astro'; import { getTagBySlug, getArticlesByTag } from '@/db/queries/public'; const tag=await getTagBySlug(Astro,Astro.params.slug!); if(!tag) return Astro.redirect('/404'); const articles=await getArticlesByTag(Astro,tag.id,24);
+---
+<BaseLayout seo={{title:tag.seo_title||`${tag.name} — GAME//BRIEF`,description:tag.seo_description||tag.description||`GAME//BRIEF coverage tagged ${tag.name}.`,path:`/tags/${tag.slug}`}}><section class="container py-10"><p class="kicker">Tag</p><h1 class="text-5xl font-black">{tag.name}</h1>{tag.description&&<p class="mt-4 max-w-2xl text-muted">{tag.description}</p>}<div class="mt-8 grid gap-5 md:grid-cols-3">{articles.map((s:any)=><StoryCard story={s}/>)}</div>{articles.length===0&&<p class="mt-5 text-muted">No published stories tagged {tag.name} yet.</p>}</section></BaseLayout>

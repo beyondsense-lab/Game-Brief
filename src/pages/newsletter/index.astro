@@ -1,0 +1,10 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import NewsletterSignup from '@/components/NewsletterSignup.astro'; const subscribed=Astro.url.searchParams.get('subscribed')==='1';
+const topics=[
+  {title:'Release radar',desc:'What is actually shipping this week, and whether it is worth your time.'},
+  {title:'Industry moves',desc:'Studio news, layoffs, acquisitions and the business decisions shaping games.'},
+  {title:'Hardware & platforms',desc:'The gear worth buying, and the gear worth skipping.'},
+  {title:'Esports briefing',desc:'Results, storylines and the scenes worth following.'},
+];
+---
+<BaseLayout seo={{title:'Newsletter — GAME//BRIEF',description:'Subscribe to the GAME//BRIEF newsletter — a focused gaming briefing covering releases, industry moves, hardware and esports.',path:'/newsletter'}}><section class="container py-12 md:py-16"><div class="grid gap-10 md:grid-cols-[1.3fr_1fr] md:items-center"><div><p class="kicker">Newsletter</p><h1 class="mt-2 text-5xl font-black leading-none md:text-6xl">Today's Gaming Brief</h1><p class="mt-4 max-w-xl text-lg text-muted md:text-xl">A focused briefing for serious players and industry watchers — no daily filler, just what actually matters.</p>{subscribed&&<div class="mt-6 border-2 border-acid bg-acid/10 p-4 font-bold text-acid" role="status">You're subscribed! Check your inbox to confirm.</div>}</div><div class="card p-6"><p class="kicker">What you get</p><ul class="mt-4 grid gap-4">{topics.map((t)=><li class="flex gap-3"><span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-acid"></span><div><p class="font-black">{t.title}</p><p class="text-sm text-muted">{t.desc}</p></div></li>)}</ul></div></div></section><NewsletterSignup /></BaseLayout>

@@ -1,0 +1,2 @@
+import type { APIRoute } from 'astro'; import { getUser, requireRole } from '@/lib/auth/session'; import { saveGame } from '@/db/queries/admin';
+export const POST:APIRoute=async (ctx)=>{const user=await getUser(ctx); if(!requireRole(user)) return new Response('Unauthorized',{status:401}); const id=ctx.url.searchParams.get('id')||undefined; const form=await ctx.request.formData(); const saved=await saveGame(ctx,form,id); return ctx.redirect(`/admin/games/${saved}/edit`,303)};

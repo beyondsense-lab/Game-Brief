@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import AdminReviewForm from '@/components/AdminReviewForm.astro'; import { all } from '@/db/queries/public'; const articles=await all(Astro,'SELECT id,title FROM articles ORDER BY updated_at DESC'); const games=await all(Astro,'SELECT id,name FROM games ORDER BY name ASC');
+---
+<AdminLayout><h1 class="mb-5 text-3xl font-black">New Review</h1><AdminReviewForm articles={articles} games={games} /></AdminLayout>

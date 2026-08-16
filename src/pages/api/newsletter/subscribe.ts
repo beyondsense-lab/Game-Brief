@@ -1,0 +1,3 @@
+import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
+export const POST:APIRoute=async(ctx)=>{const f=await ctx.request.formData(); const email=String(f.get('email')||'').toLowerCase(); if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return new Response('Invalid email',{status:400}); const now=new Date().toISOString(); await env.DB.prepare('INSERT INTO newsletter_subscribers(email,status,source,subscribed_at,created_at) VALUES(?,?,?,?,?) ON CONFLICT(email) DO UPDATE SET status="active",subscribed_at=?').bind(email,'active','public_form',now,now,now).run(); return ctx.redirect('/newsletter?subscribed=1',303)};

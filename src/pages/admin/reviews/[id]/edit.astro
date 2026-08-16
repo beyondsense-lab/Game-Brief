@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import AdminReviewForm from '@/components/AdminReviewForm.astro'; import { first, all } from '@/db/queries/public'; const review=await first(Astro,'SELECT * FROM reviews WHERE id=?',Astro.params.id); const articles=await all(Astro,'SELECT id,title FROM articles ORDER BY updated_at DESC'); const games=await all(Astro,'SELECT id,name FROM games ORDER BY name ASC');
+---
+<AdminLayout><h1 class="mb-5 text-3xl font-black">Edit Review</h1><AdminReviewForm review={review} articles={articles} games={games} action={`/api/admin/reviews?id=${Astro.params.id}`}/></AdminLayout>

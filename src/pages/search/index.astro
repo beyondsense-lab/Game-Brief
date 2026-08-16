@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { searchAll } from '@/db/queries/public';
+
+const q = (Astro.url.searchParams.get('q') || '').slice(0, 80);
+
+const results = q
+  ? await searchAll(Astro, q)
+  : [];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Search — GAME//BRIEF',
+    description: 'Search GAME//BRIEF.',
+    path: '/search',
+    noindex: true
+  }}
+>
+  <section class="container py-10">
+    <h1 class="text-5xl font-black">
+      Search
+    </h1>
+
+    <form class="mt-6">
+      <input
+        class="input max-w-xl"
+        name="q"
+        value={q}
+        placeholder="Search games, news, guides..."
+      />
+    </form>
+
+    <div class="mt-8">
+      {results.map((r: any) => (
+        <a
+          class="block border-b border-line py-4"
+          href={`/${r.type}/${r.slug}`}
+        >
+          <p class="kicker">{r.type}</p>
+          <h2 class="font-black">{r.title}</h2>
+          <p class="text-muted">{r.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

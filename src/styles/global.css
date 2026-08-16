@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #08090d;
+  --color-panel: #10131a;
+  --color-muted: #8d96a8;
+  --color-line: #242936;
+  --color-acid: #d7ff3f;
+  --color-paper: #f5f2ea;
+  --color-fg: #f4f4f6;
+  --font-sans: Inter, ui-sans-serif, system-ui;
+  --font-display: "Arial Black", Inter, sans-serif;
+  --shadow-brutal: 6px 6px 0 #08090d;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --color-ink: #f7f5ee;
+  --color-panel: #ffffff;
+  --color-muted: #5b6472;
+  --color-line: #dfddd0;
+  --color-fg: #0b0d12;
+  --color-acid: #4f6b00;
+  --shadow-brutal: 6px 6px 0 #0b0d12;
+}
+
+body {
+  @apply bg-ink text-fg antialiased transition-colors duration-200;
+}
+
+a {
+  @apply transition-colors;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.kicker {
+  @apply text-xs font-black uppercase tracking-[.22em] text-acid;
+}
+
+.card {
+  @apply border border-line bg-panel transition-colors duration-200;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center border border-acid bg-acid px-4 py-2 text-sm font-black uppercase tracking-wide text-ink transition-colors hover:bg-transparent hover:text-acid;
+}
+
+.input {
+  @apply w-full rounded-none border border-line bg-ink px-3 py-2 text-fg transition-colors focus:border-acid focus:outline-none;
+}
+
+.icon-btn {
+  @apply flex h-9 w-9 items-center justify-center border border-line bg-panel text-fg transition-colors hover:border-acid hover:text-acid;
+}
+
+.theme-icon-light {
+  display: none;
+}
+
+[data-theme="light"] .theme-icon-dark {
+  display: none;
+}
+
+[data-theme="light"] .theme-icon-light {
+  display: block;
+}
+
+.prose-gb {
+  max-width: none;
+  color: var(--color-fg);
+}
+
+.prose-gb :where(h1, h2, h3, h4) {
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.prose-gb :where(p, ul, ol, blockquote, pre, table) {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.prose-gb a {
+  color: var(--color-acid);
+}
+
+.prose-gb code,
+.prose-gb pre {
+  border: 1px solid var(--color-line);
+  background: var(--color-panel);
+}

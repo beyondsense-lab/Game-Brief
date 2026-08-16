@@ -1,0 +1,10 @@
+---
+import { env } from 'cloudflare:workers';
+import { getStorage, type ImageTransformOptions } from '@/lib/storage';
+const {src, publicId, alt='', width, height, loading='lazy', decoding='async', sizes='100vw', class: className='', transform={}}=Astro.props;
+const source=publicId||src||'';
+const storage=getStorage(env);
+const base=storage.getOptimizedImageUrl(source,{width,height,quality:'auto',format:'auto',...transform} as ImageTransformOptions);
+const srcset=[320,640,960,1280].map(w=>`${storage.getOptimizedImageUrl(source,{width:w,quality:'auto',format:'auto',...transform})} ${w}w`).join(', ');
+---
+<img src={base} srcset={source?srcset:undefined} sizes={sizes} alt={alt} width={width} height={height} loading={loading} decoding={decoding} class={className}/>

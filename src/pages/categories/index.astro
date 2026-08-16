@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import { getCategories } from '@/db/queries/public'; const categories=await getCategories(Astro);
+---
+<BaseLayout seo={{title:'Categories — GAME//BRIEF',description:'Browse GAME//BRIEF coverage by category.',path:'/categories'}}><section class="container py-10"><p class="kicker">Database</p><h1 class="text-5xl font-black">Categories</h1><p class="mt-4 text-muted">Explore news, reviews and guides organized by category.</p><div class="mt-8 grid gap-4 md:grid-cols-3">{categories.map((c:any)=><a class="card p-5" href={`/categories/${c.slug}`}><h2 class="font-black">{c.name}</h2>{c.parent_name&&<p class="mt-1 text-xs text-muted">in {c.parent_name}</p>}{c.description&&<p class="mt-2 text-sm text-muted">{c.description}</p>}</a>)}</div>{categories.length===0&&<p class="mt-5 text-muted">No categories published yet.</p>}</section></BaseLayout>

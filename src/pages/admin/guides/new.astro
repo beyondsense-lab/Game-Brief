@@ -1,0 +1,4 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'; import AdminGuideForm from '@/components/AdminGuideForm.astro'; import { all } from '@/db/queries/public'; const games=await all(Astro,'SELECT id,name FROM games ORDER BY name ASC'); const authors=await all(Astro,'SELECT id,name FROM authors ORDER BY name ASC');
+---
+<AdminLayout><h1 class="mb-5 text-3xl font-black">New Guide</h1><AdminGuideForm games={games} authors={authors} /></AdminLayout>
